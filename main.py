@@ -144,7 +144,9 @@ class Genetic:
         offsprings = []
         for i in range(0, len(parents)-1, 2):
             child1, child2 = self.crossover(parents[i], parents[i+1])
-            offsprings.extend([child1, child2])
+            # offsprings.extend([child1, child2])
+            offsprings.append(child1)
+            offsprings.append(child2)
         return offsprings
 
     def swap_mutation(self, chromosome):
@@ -170,8 +172,6 @@ class Genetic:
         return max_i, max_fit
 
     def start_loop(self):
-        if self is None:
-            raise ValueError("Genetic instance is None.")
 
         best_fitnesses = []
         best = self.random_chromosome()
@@ -195,18 +195,17 @@ class CrossoverType:
     TwoPoint = 1
     Uniform = 2
 
-if __name__ == "__main__":
-    chromosome_length = 10
-    population_size = 10
-    per_mutation = 0.1
-    max_iter = 300
-    crossover_type = CrossoverType.Uniform
+chromosome_length = 10
+population_size = 10
+per_mutation = 0.1
+max_iter = 300
+crossover_type = CrossoverType.Uniform
 
-    genetic = Genetic(chromosome_length, population_size, per_mutation, max_iter, crossover_type)
+genetic = Genetic(chromosome_length, population_size, per_mutation, max_iter, crossover_type)
 
-    best_chromosome, best_fitnesses = genetic.start_loop()
+best_chromosome, best_fitnesses = genetic.start_loop()
 
-    print(f"Best Chromosome: {best_chromosome.gens}, intersects: {best_chromosome.intersects()}")
-    best_chromosome.print_chromosome()
+print(f"Best Chromosome: {best_chromosome.gens}, intersects: {best_chromosome.intersects()}")
+best_chromosome.print_chromosome()
 
-    print(f"Best Fitnesses: {best_fitnesses}")
+print(f"Best Fitnesses: {best_fitnesses}")
